@@ -18,7 +18,7 @@ namespace VariantEditorControl
 
         }
 
-        public void SetDataList(VariantList data, VariantList dataDiscrete)
+        public void SetDataList(VariantList data, VariantList dataMin, VariantList dataMax, VariantList dataDiscrete)
         {
             int rowIndex = 1;
 
@@ -42,7 +42,7 @@ namespace VariantEditorControl
                             box.DataSource = dataDiscrete[element.Key].getIntList();
                             box.SelectedIndexChanged += (s, e) =>
                             {
-                                element.Value.setInt((int)(s as ComboBox).SelectedItem);
+                                element.Value.setInt(System.Convert.ToInt32((s as ComboBox).SelectedItem));
                             };
 
 
@@ -52,8 +52,14 @@ namespace VariantEditorControl
                         {
                             NumericUpDown updwn = new NumericUpDown();
                             updwn.Size = size;
+                            updwn.Minimum = dataMin.ContainsKey(element.Key) ? (int)dataMin[element.Key].getInt() : 0;
+                            updwn.Maximum = dataMax.ContainsKey(element.Key) ? (int)dataMax[element.Key].getInt() : (int)element.Value.getInt() * 2; ;
+
                             updwn.DataBindings.Add("Value", new VariantBindingProperties(element.Value), "asInteger");
                             mainTable.Controls.Add(updwn, 1, rowIndex);
+
+
+
                         }
                         Label l00 = new Label();
                         l00.Text = element.Value.getUnit();
@@ -65,34 +71,22 @@ namespace VariantEditorControl
 
 
                     case Variant.VariantDataType.DOUBLE:
+
                         Label l1 = new Label();
                         l1.Text = element.Key;
                         mainTable.Controls.Add(l1, 0, rowIndex);
 
 
-                        Panel p = new Panel();
-                        p.AutoSize = true;
-                        p.BorderStyle = BorderStyle.None;
-                        TrackBar tr = new TrackBar();
-
-                        tr.Maximum = (int)element.Value.getDouble() * 2;
-                        tr.Minimum = 0;
-                        tr.Size = size;
-                        tr.TickStyle = TickStyle.None;
-                        tr.Location = new System.Drawing.Point(0, 22);
-                        tr.DataBindings.Add("Value", new VariantBindingProperties(element.Value), "asDouble");
-
-                        //tableLayoutPanel1.Controls.Add(tr, 1, rowIndex);
-
-                        TextBox b = new TextBox();
-                        b.Size = size;
-                        b.DataBindings.Add("Text", tr, "Value");
-                        p.Controls.Add(b);
+                        NumericUpDown updwn1 = new NumericUpDown();
+                        updwn1.Size = size;
+                        updwn1.DecimalPlaces = 2;
+                        updwn1.Increment = 0.1M;
+                        updwn1.Minimum = dataMin.ContainsKey(element.Key) ? (int)dataMin[element.Key].getDouble() : 0;
+                        updwn1.Maximum = dataMax.ContainsKey(element.Key) ? (int)dataMax[element.Key].getDouble() : (int)element.Value.getDouble() * 2; ;
 
 
-                        p.Controls.Add(tr);
-
-                        mainTable.Controls.Add(p, 1, rowIndex);
+                        updwn1.DataBindings.Add("Value", new VariantBindingProperties(element.Value), "asDouble");
+                        mainTable.Controls.Add(updwn1, 1, rowIndex);
 
                         Label l11 = new Label();
                         l11.Text = element.Value.getUnit();
@@ -130,8 +124,6 @@ namespace VariantEditorControl
                             box.DataBindings.Add("Text", new VariantBindingProperties(element.Value), "asString");
                             mainTable.Controls.Add(box, 1, rowIndex);
                         }
-
-
 
 
 
@@ -190,7 +182,7 @@ namespace VariantEditorControl
             return;
         }
 
-        
+
 
         private void CreateTableHeader()
         {
