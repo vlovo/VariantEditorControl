@@ -20,19 +20,26 @@ namespace VariantEditorControl
 
         public void SetDataList(VariantList data, VariantList dataMin, VariantList dataMax, VariantList dataDiscrete)
         {
+
+            mainTable.Controls.Clear();
+
+            CreateTableHeader();
+
             int rowIndex = 1;
 
             var size = new System.Drawing.Size(85, 20);
-            mainTable.Controls.Clear();
+
             foreach (var element in data)
             {
 
                 switch (element.Value.getDataType())
                 {
                     case Variant.VariantDataType.INTEGER:
-                        Label l0 = new Label();
-                        l0.Text = element.Key;
-                        mainTable.Controls.Add(l0, 0, rowIndex);
+
+
+                        Label lIntegerName = new Label();
+                        lIntegerName.Text = element.Key;
+                        mainTable.Controls.Add(lIntegerName, 0, rowIndex);
 
 
                         if (dataDiscrete.ContainsKey(element.Key))
@@ -61,20 +68,24 @@ namespace VariantEditorControl
 
 
                         }
-                        Label l00 = new Label();
-                        l00.Text = element.Value.getUnit();
-                        mainTable.Controls.Add(l00, 2, rowIndex);
+                        Label lIntegerUnit = new Label();
+                        lIntegerUnit.Text = element.Value.getUnit();
+                        mainTable.Controls.Add(lIntegerUnit, 2, rowIndex);
 
+                        lIntegerUnit.Anchor = AnchorStyles.Left;
+                        mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
                         ++rowIndex;
+
 
                         break;
 
 
                     case Variant.VariantDataType.DOUBLE:
 
-                        Label l1 = new Label();
-                        l1.Text = element.Key;
-                        mainTable.Controls.Add(l1, 0, rowIndex);
+
+                        Label lDoubleName = new Label();
+                        lDoubleName.Text = element.Key;
+                        mainTable.Controls.Add(lDoubleName, 0, rowIndex);
 
 
                         NumericUpDown updwn1 = new NumericUpDown();
@@ -88,11 +99,14 @@ namespace VariantEditorControl
                         updwn1.DataBindings.Add("Value", new VariantBindingProperties(element.Value), "asDouble");
                         mainTable.Controls.Add(updwn1, 1, rowIndex);
 
-                        Label l11 = new Label();
-                        l11.Text = element.Value.getUnit();
-                        mainTable.Controls.Add(l11, 2, rowIndex);
+                        Label lDoubleUnit = new Label();
+                        lDoubleUnit.Text = element.Value.getUnit();
+                        lDoubleUnit.Anchor = AnchorStyles.Left;
 
+                        mainTable.Controls.Add(lDoubleUnit, 2, rowIndex);
+                        mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
                         ++rowIndex;
+
                         break;
 
 
@@ -100,9 +114,9 @@ namespace VariantEditorControl
                     case Variant.VariantDataType.STRING:
 
 
-                        Label l3 = new Label();
-                        l3.Text = element.Key;
-                        mainTable.Controls.Add(l3, 0, rowIndex);
+                        Label lStringName = new Label();
+                        lStringName.Text = element.Key;
+                        mainTable.Controls.Add(lStringName, 0, rowIndex);
 
                         if (dataDiscrete.ContainsKey(element.Key))
                         {
@@ -122,36 +136,41 @@ namespace VariantEditorControl
                             TextBox box = new TextBox();
                             box.Size = size;
                             box.DataBindings.Add("Text", new VariantBindingProperties(element.Value), "asString");
+
                             mainTable.Controls.Add(box, 1, rowIndex);
                         }
 
 
 
 
-                        Label unitl4 = new Label();
-                        unitl4.Text = element.Value.getUnit();
-                        mainTable.Controls.Add(unitl4, 2, rowIndex);
+                        Label lStringUnit = new Label();
+                        lStringUnit.Text = element.Value.getUnit();
+                        lStringUnit.Anchor = AnchorStyles.Left;
 
+                        mainTable.Controls.Add(lStringUnit, 2, rowIndex);
+                        mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
 
                         ++rowIndex;
                         break;
 
 
                     case Variant.VariantDataType.BOOL:
-                        Label l7 = new Label();
-                        l7.Text = element.Key;
-                        mainTable.Controls.Add(l7, 0, rowIndex);
+                        Label lBoolName = new Label();
+                        lBoolName.Text = element.Key;
+                        mainTable.Controls.Add(lBoolName, 0, rowIndex);
 
                         CheckBox chbox = new CheckBox();
                         chbox.Size = size;
                         chbox.DataBindings.Add("Checked", new VariantBindingProperties(element.Value), "asBool");
+
                         mainTable.Controls.Add(chbox, 1, rowIndex);
 
-                        Label l8 = new Label();
-                        l8.Text = "none";
+                        Label lBoolUnit = new Label();
+                        lBoolUnit.Text = element.Value.getUnit();
+                        lBoolUnit.Anchor = AnchorStyles.Left;
 
-                        mainTable.Controls.Add(l8, 2, rowIndex);
-
+                        mainTable.Controls.Add(lBoolUnit, 2, rowIndex);
+                        mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
                         ++rowIndex;
 
                         break;
@@ -166,9 +185,10 @@ namespace VariantEditorControl
                         lbox.DataSource = new VariantBindingProperties(element.Value).asStringList;
                         mainTable.Controls.Add(lbox, 1, rowIndex);
 
-                        Label l6 = new Label();
-                        l6.Text = element.Value.getUnit();
-                        mainTable.Controls.Add(l6, 2, rowIndex);
+                        Label lStringListUnit = new Label();
+                        lStringListUnit.Text = element.Value.getUnit();
+                        mainTable.Controls.Add(lStringListUnit, 2, rowIndex);
+                        mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
                         ++rowIndex;
                         break;
 
@@ -204,7 +224,7 @@ namespace VariantEditorControl
             mainTable.Controls.Add(l00, 0, rowIndex);
             mainTable.Controls.Add(l10, 1, rowIndex);
             mainTable.Controls.Add(l20, 2, rowIndex);
-
+            mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
             return;
         }
     }
