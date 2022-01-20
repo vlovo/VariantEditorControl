@@ -4,10 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FE334C5B-A7E1-4BBF-8F34-81F13C7545FE}</ProjectGuid>
+    <ProjectGuid>{A2725AF4-CC8E-48ED-AD48-4CB651ABC88B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>VariantEditorControl</RootNamespace>
-    <AssemblyName>VariantEditorControl</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITranslate</RootNamespace>
+    <AssemblyName>ITranslate</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -36,33 +37,12 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Variant.cs" />
-    <Compile Include="VariantEditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="VariantEditorControl.Designer.cs">
-      <DependentUpon>VariantEditorControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ITranslate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="VariantEditorControl.resx">
-      <DependentUpon>VariantEditorControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="ITranslate\ITranslation.csproj">
-      <Project>{a2725af4-cc8e-48ed-ad48-4cb651abc88b}</Project>
-      <Name>ITranslation</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using DataTypes;
+using ITranslation;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -9,8 +10,15 @@ namespace VariantEditorControl
 
     public partial class VariantEditorControl : UserControl
     {
-        public VariantEditorControl()
+        private ITranslate mTranslate;
+        private VariantEditorControl()
         {
+            InitializeComponent();
+            CreateTableHeader();
+        }
+        public VariantEditorControl(ITranslate translate)
+        {
+            mTranslate = translate;
             InitializeComponent();
             CreateTableHeader();
 
@@ -38,7 +46,7 @@ namespace VariantEditorControl
 
 
                         Label lIntegerName = new Label();
-                        lIntegerName.Text = element.Key;
+                        lIntegerName.Text = mTranslate.Text(element.Key);
                         mainTable.Controls.Add(lIntegerName, 0, rowIndex);
 
 
@@ -69,7 +77,7 @@ namespace VariantEditorControl
 
                         }
                         Label lIntegerUnit = new Label();
-                        lIntegerUnit.Text = element.Value.getUnit();
+                        lIntegerUnit.Text = mTranslate.Text(element.Value.getUnit());
                         mainTable.Controls.Add(lIntegerUnit, 2, rowIndex);
 
                         lIntegerUnit.Anchor = AnchorStyles.Left;
@@ -84,7 +92,7 @@ namespace VariantEditorControl
 
 
                         Label lDoubleName = new Label();
-                        lDoubleName.Text = element.Key;
+                        lDoubleName.Text = mTranslate.Text(element.Key);
                         mainTable.Controls.Add(lDoubleName, 0, rowIndex);
 
 
@@ -100,7 +108,7 @@ namespace VariantEditorControl
                         mainTable.Controls.Add(updwn1, 1, rowIndex);
 
                         Label lDoubleUnit = new Label();
-                        lDoubleUnit.Text = element.Value.getUnit();
+                        lDoubleUnit.Text = mTranslate.Text(element.Value.getUnit());
                         lDoubleUnit.Anchor = AnchorStyles.Left;
 
                         mainTable.Controls.Add(lDoubleUnit, 2, rowIndex);
@@ -115,7 +123,7 @@ namespace VariantEditorControl
 
 
                         Label lStringName = new Label();
-                        lStringName.Text = element.Key;
+                        lStringName.Text = mTranslate.Text(element.Key);
                         mainTable.Controls.Add(lStringName, 0, rowIndex);
 
                         if (dataDiscrete.ContainsKey(element.Key))
@@ -144,7 +152,7 @@ namespace VariantEditorControl
 
 
                         Label lStringUnit = new Label();
-                        lStringUnit.Text = element.Value.getUnit();
+                        lStringUnit.Text = mTranslate.Text(element.Value.getUnit());
                         lStringUnit.Anchor = AnchorStyles.Left;
 
                         mainTable.Controls.Add(lStringUnit, 2, rowIndex);
@@ -156,7 +164,7 @@ namespace VariantEditorControl
 
                     case Variant.VariantDataType.BOOL:
                         Label lBoolName = new Label();
-                        lBoolName.Text = element.Key;
+                        lBoolName.Text = mTranslate.Text(element.Key);
                         mainTable.Controls.Add(lBoolName, 0, rowIndex);
 
                         CheckBox chbox = new CheckBox();
@@ -166,7 +174,7 @@ namespace VariantEditorControl
                         mainTable.Controls.Add(chbox, 1, rowIndex);
 
                         Label lBoolUnit = new Label();
-                        lBoolUnit.Text = element.Value.getUnit();
+                        lBoolUnit.Text = mTranslate.Text(element.Value.getUnit());
                         lBoolUnit.Anchor = AnchorStyles.Left;
 
                         mainTable.Controls.Add(lBoolUnit, 2, rowIndex);
@@ -177,7 +185,7 @@ namespace VariantEditorControl
 
                     case Variant.VariantDataType.STRINGLIST:
                         Label l5 = new Label();
-                        l5.Text = element.Key;
+                        l5.Text = mTranslate.Text(element.Key);
                         mainTable.Controls.Add(l5, 0, rowIndex);
 
                         ComboBox lbox = new ComboBox();
@@ -186,7 +194,7 @@ namespace VariantEditorControl
                         mainTable.Controls.Add(lbox, 1, rowIndex);
 
                         Label lStringListUnit = new Label();
-                        lStringListUnit.Text = element.Value.getUnit();
+                        lStringListUnit.Text = mTranslate.Text(element.Value.getUnit());
                         mainTable.Controls.Add(lStringListUnit, 2, rowIndex);
                         mainTable.RowStyles[rowIndex].SizeType = SizeType.AutoSize;
                         ++rowIndex;
@@ -208,16 +216,16 @@ namespace VariantEditorControl
         {
             const int rowIndex = 0;
             Label l00 = new Label();
-            l00.Text = "Name";
+            l00.Text = mTranslate.Text("Name");
             l00.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             Label l10 = new Label();
-            l10.Text = "Value";
+            l10.Text = mTranslate.Text("Value");
             l10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             Label l20 = new Label();
             l20.Anchor = AnchorStyles.Left;
-            l20.Text = "Unit";
+            l20.Text = mTranslate.Text("Unit");
 
             l20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
