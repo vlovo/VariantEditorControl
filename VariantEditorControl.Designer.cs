@@ -35,18 +35,20 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.BackColor = System.Drawing.SystemColors.Control;
             this.mainPanel.Controls.Add(this.mainTable);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(328, 476);
+            this.mainPanel.Size = new System.Drawing.Size(383, 586);
             this.mainPanel.TabIndex = 0;
             // 
             // mainTable
             // 
+            this.mainTable.BackColor = System.Drawing.SystemColors.Control;
             this.mainTable.ColumnCount = 3;
-            this.mainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.mainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
+            this.mainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.mainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.mainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.mainTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTable.Location = new System.Drawing.Point(0, 0);
@@ -60,16 +62,18 @@
             this.mainTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mainTable.Size = new System.Drawing.Size(328, 476);
+            this.mainTable.Size = new System.Drawing.Size(383, 586);
             this.mainTable.TabIndex = 0;
             // 
             // VariantEditorControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.mainPanel);
+            this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "VariantEditorControl";
-            this.Size = new System.Drawing.Size(328, 476);
+            this.Size = new System.Drawing.Size(383, 586);
             this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
