@@ -34,19 +34,72 @@ namespace VariantEditorControl
     public partial class VariantEditorControl : UserControl
     {
         private ITranslate mTranslate;
+        private int mNumberOfRows;
         private VariantEditorControl()
         {
+            mNumberOfRows = 1;
             InitializeComponent();
-            CreateTableHeader();
+          
+            this.Load += (s, e) =>
+            {
+                CheckAutoScroll(s);
+
+            };
+
+            this.Resize += (s, e) =>
+            {
+                CheckAutoScroll(s);
+
+            };
         }
-        public VariantEditorControl(ITranslate translate)
+        public VariantEditorControl(ITranslate translate) : this()
         {
             mTranslate = translate;
-            InitializeComponent();
+
             CreateTableHeader();
 
 
 
+        }
+
+        private void CheckAutoScroll(object s)
+        {
+            int totalHeight = CalculateRowHeights();
+            if ((s as Control).Height <= totalHeight)
+            {
+                this.AutoScroll = true;
+                this.AutoScrollMinSize = new System.Drawing.Size(0, 40 + totalHeight);
+            }
+            else
+            {
+                this.AutoScroll = false;
+            }
+        }
+
+        private int CalculateRowHeights()
+        {
+
+            Dictionary<int, int> RowHeights = new Dictionary<int, int>();
+
+            var list = mainTable.Controls;
+
+            foreach (Control element in list)
+            {
+                int key = mainTable.GetRow(element);
+
+                if (RowHeights.ContainsKey(key))
+                    RowHeights[key] = element.Height > RowHeights[key] ? element.Height : RowHeights[key];
+                else
+                    RowHeights.Add(key, element.Height);
+
+            }
+
+            int height = 0;
+            foreach (var row in RowHeights)
+            {
+                height += row.Value;
+            }
+            return height;
         }
 
         public void SetDataList(VariantList data, VariantList dataMin, VariantList dataMax, VariantList dataDiscrete)
@@ -103,8 +156,8 @@ namespace VariantEditorControl
                         lIntegerUnit.Text = mTranslate.Text(element.Value.getUnit());
                         mainTable.Controls.Add(lIntegerUnit, 2, rowIndex);
 
-                        
-                       
+
+
                         ++rowIndex;
 
 
@@ -132,10 +185,10 @@ namespace VariantEditorControl
 
                         Label lDoubleUnit = new Label();
                         lDoubleUnit.Text = mTranslate.Text(element.Value.getUnit());
-                     
+
 
                         mainTable.Controls.Add(lDoubleUnit, 2, rowIndex);
-                        
+
                         ++rowIndex;
 
                         break;
@@ -176,10 +229,10 @@ namespace VariantEditorControl
 
                         Label lStringUnit = new Label();
                         lStringUnit.Text = mTranslate.Text(element.Value.getUnit());
-                    
+
 
                         mainTable.Controls.Add(lStringUnit, 2, rowIndex);
-                        
+
 
                         ++rowIndex;
                         break;
@@ -198,10 +251,10 @@ namespace VariantEditorControl
 
                         Label lBoolUnit = new Label();
                         lBoolUnit.Text = mTranslate.Text(element.Value.getUnit());
-                       
+
 
                         mainTable.Controls.Add(lBoolUnit, 2, rowIndex);
-                         
+
                         ++rowIndex;
 
                         break;
@@ -219,7 +272,7 @@ namespace VariantEditorControl
                         Label lStringListUnit = new Label();
                         lStringListUnit.Text = mTranslate.Text(element.Value.getUnit());
                         mainTable.Controls.Add(lStringListUnit, 2, rowIndex);
-                        
+
                         ++rowIndex;
                         break;
 
@@ -229,6 +282,8 @@ namespace VariantEditorControl
                 }
 
             }
+            mNumberOfRows = rowIndex - 1;
+            this.Invalidate();
 
             return;
         }
