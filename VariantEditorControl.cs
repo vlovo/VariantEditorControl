@@ -35,7 +35,8 @@ namespace VariantEditorControl
     {
         private ITranslate mTranslate;
         private int mNumberOfRows;
-        private VariantEditorControl()
+
+        public VariantEditorControl()
         {
             mNumberOfRows = 1;
             InitializeComponent();
@@ -55,8 +56,6 @@ namespace VariantEditorControl
         public VariantEditorControl(ITranslate translate) : this()
         {
             mTranslate = translate;
-
-            CreateTableHeader();
 
 
 
