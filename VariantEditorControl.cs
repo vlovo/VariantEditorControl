@@ -34,6 +34,7 @@ namespace VariantEditorControl
     public partial class VariantEditorControl : UserControl
     {
         private ITranslate mTranslate;
+        private int mNumberOfRows;
         private VariantEditorControl()
         {
             InitializeComponent();
@@ -42,11 +43,41 @@ namespace VariantEditorControl
         public VariantEditorControl(ITranslate translate)
         {
             mTranslate = translate;
+            mNumberOfRows = 1;
             InitializeComponent();
             CreateTableHeader();
 
 
+            this.Resize += (s, e) =>
+            {
+                CalculateAverageRowHeight();
 
+                int rowHeight = 35;
+                int totalHeight = mNumberOfRows * rowHeight;
+                if ((s as Control).Height < totalHeight)
+                {
+                    this.AutoScroll = true;
+                    this.AutoScrollMinSize = new System.Drawing.Size(0, totalHeight);
+                }
+                else
+                {
+                    this.AutoScroll = false;
+                }
+
+            };
+
+
+
+        }
+
+        private void CalculateAverageRowHeight()
+        {
+            var list = mainTable.Controls;
+            double f = 0;
+            foreach (var element in list)
+            {
+                f += (element as Control).Height;
+            }
         }
 
         public void SetDataList(VariantList data, VariantList dataMin, VariantList dataMax, VariantList dataDiscrete)
@@ -103,8 +134,8 @@ namespace VariantEditorControl
                         lIntegerUnit.Text = mTranslate.Text(element.Value.getUnit());
                         mainTable.Controls.Add(lIntegerUnit, 2, rowIndex);
 
-                        
-                       
+
+
                         ++rowIndex;
 
 
@@ -132,10 +163,10 @@ namespace VariantEditorControl
 
                         Label lDoubleUnit = new Label();
                         lDoubleUnit.Text = mTranslate.Text(element.Value.getUnit());
-                     
+
 
                         mainTable.Controls.Add(lDoubleUnit, 2, rowIndex);
-                        
+
                         ++rowIndex;
 
                         break;
@@ -176,10 +207,10 @@ namespace VariantEditorControl
 
                         Label lStringUnit = new Label();
                         lStringUnit.Text = mTranslate.Text(element.Value.getUnit());
-                    
+
 
                         mainTable.Controls.Add(lStringUnit, 2, rowIndex);
-                        
+
 
                         ++rowIndex;
                         break;
@@ -198,10 +229,10 @@ namespace VariantEditorControl
 
                         Label lBoolUnit = new Label();
                         lBoolUnit.Text = mTranslate.Text(element.Value.getUnit());
-                       
+
 
                         mainTable.Controls.Add(lBoolUnit, 2, rowIndex);
-                         
+
                         ++rowIndex;
 
                         break;
@@ -219,7 +250,7 @@ namespace VariantEditorControl
                         Label lStringListUnit = new Label();
                         lStringListUnit.Text = mTranslate.Text(element.Value.getUnit());
                         mainTable.Controls.Add(lStringListUnit, 2, rowIndex);
-                        
+
                         ++rowIndex;
                         break;
 
@@ -229,6 +260,8 @@ namespace VariantEditorControl
                 }
 
             }
+            mNumberOfRows = rowIndex-1;
+            this.Invalidate();
 
             return;
         }

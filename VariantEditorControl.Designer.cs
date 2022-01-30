@@ -40,7 +40,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(383, 586);
+            this.mainPanel.Size = new System.Drawing.Size(383, 623);
             this.mainPanel.TabIndex = 0;
             // 
             // mainTable
@@ -62,18 +62,19 @@
             this.mainTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mainTable.Size = new System.Drawing.Size(383, 586);
+            this.mainTable.Size = new System.Drawing.Size(383, 623);
             this.mainTable.TabIndex = 0;
             // 
             // VariantEditorControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.mainPanel);
-            this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "VariantEditorControl";
-            this.Size = new System.Drawing.Size(383, 586);
+            this.Size = new System.Drawing.Size(383, 623);
             this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
