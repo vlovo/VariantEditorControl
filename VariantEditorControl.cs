@@ -40,7 +40,7 @@ namespace VariantEditorControl
         {
             mNumberOfRows = 1;
             InitializeComponent();
-          
+
             this.Load += (s, e) =>
             {
                 CheckAutoScroll(s);
@@ -52,6 +52,11 @@ namespace VariantEditorControl
                 CheckAutoScroll(s);
 
             };
+
+
+
+
+
         }
         public VariantEditorControl(ITranslate translate) : this()
         {
@@ -67,7 +72,7 @@ namespace VariantEditorControl
             if ((s as Control).Height <= totalHeight)
             {
                 this.AutoScroll = true;
-                this.AutoScrollMinSize = new System.Drawing.Size(0, 40 + totalHeight);
+                this.AutoScrollMinSize = new System.Drawing.Size(0, totalHeight);
             }
             else
             {
@@ -85,11 +90,12 @@ namespace VariantEditorControl
             foreach (Control element in list)
             {
                 int key = mainTable.GetRow(element);
+                var margin = element.Margin.Top + element.Margin.Bottom;
 
                 if (RowHeights.ContainsKey(key))
-                    RowHeights[key] = element.Height > RowHeights[key] ? element.Height : RowHeights[key];
+                    RowHeights[key] = element.Height > RowHeights[key] ? element.Height + margin : RowHeights[key];
                 else
-                    RowHeights.Add(key, element.Height);
+                    RowHeights.Add(key, element.Height + margin);
 
             }
 
